@@ -139,11 +139,6 @@ if __name__ == '__main__':
             new_generation.extend(crossover(population[random_in_range(0, population_size / 2)],
                                             population[random_in_range(population_size / 2, population_size - 1)]))
 
-        # s = int((0.1 * population_size))
-        # for _ in range(s):
-        #     new_generation.extend(crossover(population[random_in_range(0, population_size / 3)],
-        #                                     population[random_in_range(population_size / 3, population_size - 1)]))
-
         s = int((population_size * 0.15))
         for z in range(s):
             new_generation.append(random_mutated_copy(population[z]))
@@ -154,77 +149,11 @@ if __name__ == '__main__':
         if population[0].fitness == pre_fitness:
             stuck_local += 1
             # stuck_global +=1
-            if stuck_local == 10:
+            if stuck_local == 5:
                 stuck_local = 0
-                # pre_fitness = population[0].fitness
-                # s = int((population_size * 0.05))
-                # for q in range(s):
                 population.append(random_mutated_copy(population[0]))
                 population.pop(0)
-                # if stuck_global == 200:
-                #     stuck_global = 0
-                #     population = population[:int(population_size/2)]
-                #     [population.append(Gnome(get_gnome(number_of_items))) for _ in range(int(population_size/2))]
-
         pre_fitness = population[0].fitness
 
         generation += 1
         print("generation_", generation, population[0].fitness, "volume ", calc_vol(population[0]))
-
-
-
-
-        # another method
-        # fitness_map = {}
-        # while generation <= genx:
-        #     generation += 1
-        #     for soln in population:
-        #         if soln.fitness in fitness_map:
-        #             fitness_map[soln.fitness] += 1
-        #         else:
-        #             fitness_map[soln.fitness] = 1
-        #
-        #     max_key = max(fitness_map, key=fitness_map.get)
-        #     percentage_same = fitness_map[max_key] / population_size
-        #     # print(percentage_same)
-        #     print(max_key)
-        #
-        #     if percentage_same >= 0.9 and generation == genx:
-        #         break
-        #
-        #     if percentage_same >= 0.9 and generation < genx:
-        #         continue
-        #
-        #     if percentage_same <= 0.9:
-        #         random1 = random_in_range(0, population_size - 1)
-        #         random2 = random_in_range(0, population_size - 1)
-        #
-        #         crossover_childs = crossover(population[random1], population[random2])
-        #         mutated_copies = [random_mutated_copy(ch) for ch in crossover_childs]
-        #
-        #         if random2 < random1:
-        #             random2, random1 = random1, random2
-        #
-        #         fitness_map[population[random1].fitness] -= 1
-        #         if population[random2].fitness in fitness_map:
-        #             fitness_map[population[random2].fitness]-=1
-        #
-        #         for msol in mutated_copies:
-        #             if msol.fitness in fitness_map:
-        #                 fitness_map[soln.fitness] += 1
-        #             else:
-        #                 fitness_map[soln.fitness] = 1
-        #
-        #         population.pop(random2)
-        #         population.pop(random1)
-        #
-        #         population.extend(mutated_copies)
-        #
-        #         max_key = max(fitness_map, key=fitness_map.get)
-        #         percentage_same = fitness_map[max_key] / population_size
-        #
-        #         if percentage_same < 0.9:
-        #             continue
-        #
-        # max_key = max(fitness_map, key=fitness_map.get)
-        # print("max fitness ",fitness_map[max_key])
